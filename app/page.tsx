@@ -43,7 +43,10 @@ export default function Home() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
+    // Store form reference before async call
+    const form = e.currentTarget;
+
+    const formData = new FormData(form);
     const data = {
       fullName: formData.get('fullName'),
       email: formData.get('email'),
@@ -87,7 +90,7 @@ export default function Home() {
 
       if (response.status === 200) {
         setFormSubmitted(true);
-        e.currentTarget.reset();
+        form.reset();
       } else {
         console.error('EmailJS - Non-200 status:', response.status);
         alert('There was an error sending your inquiry. Please try again.');
