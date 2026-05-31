@@ -64,8 +64,8 @@ export default function Home() {
       const templateParams = {
         from_name: data.fullName,
         from_email: data.email,
-        destination: data.tour,
-        dates: data.travelDates || 'Not specified',
+        tour: data.tour,
+        travel_dates: data.travelDates || 'Not specified',
         travelers: data.travelers || 'Not specified',
         message: data.message,
         to_email: 'yassine.elyamani.sg@gmail.com',
