@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 
-// Initialize EmailJS with your public key
-emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
+// Initialize EmailJS with provided public key
+emailjs.init('hyUcr0YA7DwFVZSi1');
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,16 +64,16 @@ export default function Home() {
       const templateParams = {
         from_name: data.fullName,
         from_email: data.email,
-        tour: data.tour,
-        travel_dates: data.travelDates || 'Not specified',
+        destination: data.tour,
+        dates: data.travelDates || 'Not specified',
         travelers: data.travelers || 'Not specified',
         message: data.message,
-        to_email: 'Yassine.elyamani.sg@gmail.com',
+        to_email: 'yassine.elyamani.sg@gmail.com',
       };
 
       const response = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        'service_einzjkb',
+        'template_mj8ywue',
         templateParams
       );
 
