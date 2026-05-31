@@ -71,20 +71,31 @@ export default function Home() {
         to_email: 'yassine.elyamani.sg@gmail.com',
       };
 
+      console.log('EmailJS - Sending email with params:', templateParams);
+      console.log('EmailJS - Service ID: service_einzjkb');
+      console.log('EmailJS - Template ID: template_mj8ywue');
+
       const response = await emailjs.send(
         'service_einzjkb',
         'template_mj8ywue',
         templateParams
       );
 
+      console.log('EmailJS - Response:', response);
+      console.log('EmailJS - Response status:', response.status);
+      console.log('EmailJS - Response text:', response.text);
+
       if (response.status === 200) {
         setFormSubmitted(true);
         e.currentTarget.reset();
       } else {
+        console.error('EmailJS - Non-200 status:', response.status);
         alert('There was an error sending your inquiry. Please try again.');
       }
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('EmailJS - Full error:', error);
+      console.error('EmailJS - Error message:', error instanceof Error ? error.message : String(error));
+      console.error('EmailJS - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
       alert('There was an error sending your inquiry. Please try again.');
     } finally {
       setIsSubmitting(false);
