@@ -65,8 +65,8 @@ export default function Home() {
 
     try {
       const templateParams = {
-        from_name: data.fullName,
-        from_email: data.email,
+        name: data.fullName,
+        email: data.email,
         tour: data.tour,
         travel_dates: data.travelDates || 'Not specified',
         travelers: data.travelers || 'Not specified',
@@ -91,15 +91,11 @@ export default function Home() {
       if (response.status === 200) {
         setFormSubmitted(true);
         form.reset();
-      } else {
-        console.error('EmailJS - Non-200 status:', response.status);
-        alert('There was an error sending your inquiry. Please try again.');
       }
     } catch (error) {
       console.error('EmailJS - Full error:', error);
       console.error('EmailJS - Error message:', error instanceof Error ? error.message : String(error));
       console.error('EmailJS - Error stack:', error instanceof Error ? error.stack : 'No stack trace');
-      alert('There was an error sending your inquiry. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
