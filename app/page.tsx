@@ -1,9 +1,11 @@
 ﻿'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [toursVisible, setToursVisible] = useState(false);
+  const toursRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +14,23 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setToursVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (toursRef.current) {
+      observer.observe(toursRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
   return (
     <main className="min-h-screen overflow-hidden bg-[#060506]">
@@ -86,261 +105,354 @@ export default function Home() {
 
             <div className="flex flex-col gap-5 sm:flex-row pt-8">
               <a
-                href="#destinations"
+                href="#tours"
                 className="group inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
               >
                 Explore Now
                 <span className="transition duration-300 group-hover:translate-x-1">→</span>
               </a>
               <a
-                href="#experiences"
+                href="#contact"
                 className="group inline-flex items-center justify-center rounded-sm border border-white/30 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white backdrop-blur-sm transition duration-300 hover:border-white/50 hover:bg-white/5"
               >
                 Discover More
+              </a>
+            </div>
+
+            <div className="pt-6">
+              <a
+                href="https://www.tripadvisor.com/Attraction_Review-g304017-d34251819-Reviews-Find_Your_Morocco-Merzouga_Draa_Tafilalet.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37]/20 hover:border-[#D4AF37]/50"
+              >
+                <span className="text-[#D4AF37]">⭐</span>
+                <span>Rated Excellent on Tripadvisor</span>
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* DESTINATIONS SECTION */}
-      <section id="destinations" className="relative border-t border-white/10 bg-[#060506] px-6 py-32 sm:px-10 lg:px-14">
+      {/* FEATURED TOURS SECTION */}
+      <section id="tours" ref={toursRef} className={`relative border-t border-white/10 bg-[#060506] px-6 py-32 sm:px-10 lg:px-14 transition-all duration-1000 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-20 space-y-6 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-500/15 px-5 py-3">
-              <span className="text-xs uppercase tracking-[0.3em] font-semibold text-amber-300">✓ Premium Destinations</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-gray-200">Featured Tours</span>
             </div>
             <h2 className="text-5xl font-black text-white sm:text-6xl lg:text-7xl drop-shadow-xl">
-              Morocco's Most Exclusive Escapes
+              Premium Morocco Tours
             </h2>
-            <p className="mx-auto max-w-2xl text-base text-gray-300 leading-relaxed">
-              Handpicked locations offering unparalleled luxury and authentic cultural experiences curated for discerning travelers.
+            <p className="mx-auto max-w-2xl text-sm text-gray-200 leading-relaxed uppercase tracking-[0.15em]">
+              Curated itineraries designed for discerning travelers seeking authentic luxury experiences.
             </p>
           </div>
 
-          <div className="grid gap-10 lg:grid-cols-3">
-            {/* MARRAKECH CARD */}
-            <article className="group flex flex-col overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-2xl shadow-black/50 transition-all duration-700 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-900/30 hover:scale-105">
-              <div className="relative h-80 overflow-hidden">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* 3 DAYS MARRAKECH TO MERZOUGA TOUR */}
+            <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '0ms' : '0ms' }}>
+              <div className="relative h-72 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1597212618440-806262de4f6b?q=80&w=1200&auto=format&fit=crop"
-                  alt="Marrakech"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-125"
+                  src="/images/marrakesh.jpg"
+                  alt="3 Days Marrakech to Merzouga"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute top-4 right-4 rounded-sm bg-[#D4AF37]/90 px-3 py-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black">3 Days</span>
+                </div>
               </div>
 
-              <div className="flex flex-1 flex-col justify-between space-y-6 p-10">
-                <div className="space-y-4">
-                  <p className="text-xs uppercase tracking-[0.3em] font-semibold text-amber-300">Marrakech</p>
-                  <h3 className="text-3xl font-bold text-white">City of Palaces</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Immerse yourself in luxury riads, vibrant souks, and world-class Moroccan cuisine in the red city.
-                  </p>
+              <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">Marrakech to Merzouga</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Desert camp stay</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Camel trek</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Ait Ben Haddou</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-4 border-t border-white/15 pt-6">
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span className="font-medium">Luxury Riads</span>
-                    <span className="text-amber-300 font-bold">From $420/night</span>
-                  </div>
-                  <a
-                    href="#contact"
-                    className="inline-block rounded-lg bg-amber-500/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-300 border border-amber-400/30 transition duration-300 hover:bg-amber-400 hover:text-black hover:border-amber-400"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
+                >
+                  View Itinerary
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </a>
               </div>
             </article>
 
-            {/* SAHARA CARD */}
-            <article className="group flex flex-col overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-2xl shadow-black/50 transition-all duration-700 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-900/30 hover:scale-105">
-              <div className="relative h-80 overflow-hidden">
+            {/* 4 DAYS MARRAKECH TO MERZOUGA TOUR */}
+            <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '150ms' : '0ms' }}>
+              <div className="relative h-72 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1547235001-d703406d3f17?q=80&w=1200&auto=format&fit=crop"
-                  alt="Sahara Desert"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-125"
+                  src="/images/sahara.jpg"
+                  alt="4 Days Marrakech to Merzouga"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute top-4 right-4 rounded-sm bg-[#D4AF37]/90 px-3 py-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black">4 Days</span>
+                </div>
               </div>
 
-              <div className="flex flex-1 flex-col justify-between space-y-6 p-10">
-                <div className="space-y-4">
-                  <p className="text-xs uppercase tracking-[0.3em] font-semibold text-amber-300">Sahara</p>
-                  <h3 className="text-3xl font-bold text-white">Desert Glamping</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Sleep under infinite stars in private luxury desert camps with guided expeditions and gourmet dining.
-                  </p>
+              <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">Marrakech to Merzouga</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Luxury desert camp</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Sunset camel trek</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Dades Valley</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-4 border-t border-white/15 pt-6">
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span className="font-medium">Private Camps</span>
-                    <span className="text-amber-300 font-bold">From $580/night</span>
-                  </div>
-                  <a
-                    href="#contact"
-                    className="inline-block rounded-lg bg-amber-500/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-300 border border-amber-400/30 transition duration-300 hover:bg-amber-400 hover:text-black hover:border-amber-400"
-                  >
-                    Learn More
-                  </a>
-                </div>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
+                >
+                  View Itinerary
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </a>
               </div>
             </article>
 
-            {/* CHEFCHAOUEN CARD */}
-            <article className="group flex flex-col overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-2xl shadow-black/50 transition-all duration-700 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-900/30 hover:scale-105">
-              <div className="relative h-80 overflow-hidden">
+            {/* 10 DAYS MOROCCO TOUR FROM CASABLANCA */}
+            <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '300ms' : '0ms' }}>
+              <div className="relative h-72 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1200&auto=format&fit=crop"
-                  alt="Chefchaouen"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-125"
+                  src="/images/chefchaouen.jpg"
+                  alt="10 Days Morocco Tour"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute top-4 right-4 rounded-sm bg-[#D4AF37]/90 px-3 py-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black">10 Days</span>
+                </div>
               </div>
 
-              <div className="flex flex-1 flex-col justify-between space-y-6 p-10">
-                <div className="space-y-4">
-                  <p className="text-xs uppercase tracking-[0.3em] font-semibold text-amber-300">Chefchaouen</p>
-                  <h3 className="text-3xl font-bold text-white">Blue Mountain Retreat</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Wander porcelain-blue streets, stay in mountain boutique hotels, and connect with local artisans.
-                  </p>
+              <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">Morocco from Casablanca</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Chefchaouen blue city</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Fes medina</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Sahara desert</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-4 border-t border-white/15 pt-6">
-                  <div className="flex justify-between text-xs text-gray-400">
-                    <span className="font-medium">Boutique Hotels</span>
-                    <span className="text-amber-300 font-bold">From $360/night</span>
-                  </div>
-                  <a
-                    href="#contact"
-                    className="inline-block rounded-lg bg-amber-500/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-amber-300 border border-amber-400/30 transition duration-300 hover:bg-amber-400 hover:text-black hover:border-amber-400"
-                  >
-                    Learn More
-                  </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
+                >
+                  View Itinerary
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </a>
+              </div>
+            </article>
+
+            {/* 14 DAYS MOROCCO GRAND TOUR */}
+            <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '450ms' : '0ms' }}>
+              <div className="relative h-72 overflow-hidden">
+                <img
+                  src="/images/atlas.jpg"
+                  alt="14 Days Morocco Grand Tour"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute top-4 right-4 rounded-sm bg-[#D4AF37]/90 px-3 py-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black">14 Days</span>
                 </div>
+              </div>
+
+              <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">Morocco Grand Tour</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>All major cities</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Atlas Mountains</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Complete Morocco</span>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
+                >
+                  View Itinerary
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </a>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      {/* LUXURY EXPERIENCES SECTION */}
-      <section id="experiences" className="relative border-t border-white/10 bg-gradient-to-b from-[#060506] to-[#0a0809] px-6 py-32 sm:px-10 lg:px-14">
+      {/* TRUST SECTION */}
+      <section className="relative border-t border-white/10 bg-[#060506] px-6 py-20 sm:px-10 lg:px-14">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="flex flex-col items-center gap-8 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-gray-200">Trusted Excellence</span>
+            </div>
+            <h2 className="text-4xl font-black text-white sm:text-5xl lg:text-6xl drop-shadow-xl">
+              Trusted by Travelers Worldwide
+            </h2>
+            <div className="flex items-center gap-3">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="text-[#D4AF37] text-3xl">★</span>
+              ))}
+            </div>
+            <p className="max-w-2xl text-sm text-gray-200 leading-relaxed uppercase tracking-[0.15em]">
+              Rated Excellent on Tripadvisor by hundreds of satisfied travelers who experienced Morocco with us.
+            </p>
+            <a
+              href="https://www.tripadvisor.com/Attraction_Review-g304017-d34251819-Reviews-Find_Your_Morocco-Merzouga_Draa_Tafilalet.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
+            >
+              Read Reviews on Tripadvisor
+              <span className="transition duration-300 group-hover:translate-x-1">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT/INQUIRY SECTION */}
+      <section id="contact" className="relative border-t border-white/10 bg-[#060506] px-6 py-32 sm:px-10 lg:px-14">
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-20 space-y-6 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-500/15 px-5 py-3">
-              <span className="text-xs uppercase tracking-[0.3em] font-semibold text-amber-300">✨ Exclusive Experiences</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-gray-200">Get In Touch</span>
             </div>
             <h2 className="text-5xl font-black text-white sm:text-6xl lg:text-7xl drop-shadow-xl">
-              Curated Luxury Moments
+              Start Planning Your Morocco Journey
             </h2>
-            <p className="mx-auto max-w-2xl text-base text-gray-300 leading-relaxed">
-              Beyond destinations—immersive experiences designed for discerning travelers seeking authentic connection
+            <p className="mx-auto max-w-2xl text-sm text-gray-200 leading-relaxed uppercase tracking-[0.15em]">
+              Tell us about your dream Morocco experience and our travel experts will create a personalized itinerary just for you.
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* DESERT GLAMPING */}
-            <div className="group relative overflow-hidden rounded-[24px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] p-10 backdrop-blur-xl transition-all duration-500 hover:border-amber-400/50 hover:bg-white/8 hover:shadow-2xl hover:shadow-amber-900/20">
-              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-amber-500/15 transition duration-500 group-hover:scale-150" />
-
-              <div className="relative space-y-6">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-3xl">
-                  🏜️
+          <div className="mx-auto max-w-3xl">
+            <form className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Full Name</label>
+                  <input
+                    type="text"
+                    placeholder="Your full name"
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  />
                 </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-white">Desert Glamping</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Experience the raw beauty of the Sahara with private luxury camps, guided camel treks, and sunset dinners under the stars.
-                  </p>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Email</label>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  />
                 </div>
-
-                <ul className="space-y-3 border-t border-white/15 pt-6">
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Private tented camps
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Expert Bedouin guides
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Gourmet desert dining
-                  </li>
-                </ul>
               </div>
-            </div>
 
-            {/* PRIVATE RIADS */}
-            <div className="group relative overflow-hidden rounded-[24px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] p-10 backdrop-blur-xl transition-all duration-500 hover:border-amber-400/50 hover:bg-white/8 hover:shadow-2xl hover:shadow-amber-900/20">
-              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-amber-500/15 transition duration-500 group-hover:scale-150" />
-
-              <div className="relative space-y-6">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-3xl">
-                  🏛️
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">WhatsApp Number</label>
+                  <input
+                    type="tel"
+                    placeholder="+1 234 567 8900"
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  />
                 </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-white">Private Riads</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Stay in exclusive restored riads with personal concierge service, rooftop lounges, and access to hidden medina gems.
-                  </p>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Tour Interested In</label>
+                  <select className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none">
+                    <option value="" className="bg-[#060506]">Select a tour</option>
+                    <option value="3-days" className="bg-[#060506]">3 Days Marrakech to Merzouga</option>
+                    <option value="4-days" className="bg-[#060506]">4 Days Marrakech to Merzouga</option>
+                    <option value="10-days" className="bg-[#060506]">10 Days Morocco Tour from Casablanca</option>
+                    <option value="14-days" className="bg-[#060506]">14 Days Morocco Grand Tour</option>
+                    <option value="custom" className="bg-[#060506]">Custom Tour</option>
+                  </select>
                 </div>
-
-                <ul className="space-y-3 border-t border-white/15 pt-6">
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Boutique riads only
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Personal concierge
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Spa & wellness
-                  </li>
-                </ul>
               </div>
-            </div>
 
-            {/* CULTURAL TOURS */}
-            <div className="group relative overflow-hidden rounded-[24px] border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] p-10 backdrop-blur-xl transition-all duration-500 hover:border-amber-400/50 hover:bg-white/8 hover:shadow-2xl hover:shadow-amber-900/20">
-              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-amber-500/15 transition duration-500 group-hover:scale-150" />
-
-              <div className="relative space-y-6">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-3xl">
-                  🎭
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Travel Dates</label>
+                  <input
+                    type="text"
+                    placeholder="Flexible or specific dates"
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  />
                 </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-white">Cultural Tours</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">
-                    Engage with Morocco's rich heritage through private artisan workshops, local cuisine classes, and intimate cultural exchanges.
-                  </p>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Number of Travelers</label>
+                  <select className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none">
+                    <option value="" className="bg-[#060506]">Select number</option>
+                    <option value="1" className="bg-[#060506]">1 Traveler</option>
+                    <option value="2" className="bg-[#060506]">2 Travelers</option>
+                    <option value="3-4" className="bg-[#060506]">3-4 Travelers</option>
+                    <option value="5-6" className="bg-[#060506]">5-6 Travelers</option>
+                    <option value="7+" className="bg-[#060506]">7+ Travelers</option>
+                  </select>
                 </div>
-
-                <ul className="space-y-3 border-t border-white/15 pt-6">
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Private guides
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Artisan workshops
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-200">
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-300" />
-                    Culinary experiences
-                  </li>
-                </ul>
               </div>
-            </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Message</label>
+                <textarea
+                  rows={4}
+                  placeholder="Tell us about your dream Morocco experience..."
+                  className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
+              >
+                Send Inquiry
+                <span className="transition duration-300 group-hover:translate-x-1">→</span>
+              </button>
+            </form>
           </div>
         </div>
       </section>
