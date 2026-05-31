@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'yassine.elyamani.sg@gmail.com',
       to: ['Yassine.elyamani.sg@gmail.com'],
       subject: `New Morocco Tour Inquiry from ${fullName}`,
       html: htmlContent,
