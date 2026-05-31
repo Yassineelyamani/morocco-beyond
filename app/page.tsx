@@ -1,6 +1,10 @@
 ﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS with your public key
+emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -57,21 +61,30 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/inquiry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const templateParams = {
+        from_name: data.fullName,
+        from_email: data.email,
+        tour: data.tour,
+        travel_dates: data.travelDates || 'Not specified',
+        travelers: data.travelers || 'Not specified',
+        message: data.message,
+        to_email: 'Yassine.elyamani.sg@gmail.com',
+      };
 
-      if (response.ok) {
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams
+      );
+
+      if (response.status === 200) {
         setFormSubmitted(true);
         e.currentTarget.reset();
       } else {
         alert('There was an error sending your inquiry. Please try again.');
       }
     } catch (error) {
+      console.error('EmailJS error:', error);
       alert('There was an error sending your inquiry. Please try again.');
     } finally {
       setIsSubmitting(false);
