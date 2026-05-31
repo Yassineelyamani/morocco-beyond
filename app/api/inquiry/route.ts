@@ -138,17 +138,18 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Morocco Beyond <onboarding@resend.dev>',
+      from: 'onboarding@resend.dev',
       to: ['Yassine.elyamani.sg@gmail.com'],
       subject: `New Morocco Tour Inquiry from ${fullName}`,
       html: htmlContent,
       replyTo: email,
     });
 
-    if (error) {
-  console.log('RESEND ERROR:', error);
+    console.log('RESEND DATA:', data);
 
-  return NextResponse.json(
+    if (error) {
+      console.log('RESEND ERROR FULL:', JSON.stringify(error, null, 2));
+      return NextResponse.json(
         { error: 'Failed to send email. Please try again.' },
         { status: 500 }
       );
