@@ -77,6 +77,8 @@ export default function Home() {
       console.log('EmailJS - Sending email with params:', templateParams);
       console.log('EmailJS - Service ID: service_einzjkb');
       console.log('EmailJS - Template ID: template_mj8ywue');
+      console.log('EmailJS - Form data:', data);
+      console.log('EmailJS - Expected template variables: {{name}}, {{email}}, {{tour}}, {{travel_dates}}, {{travelers}}, {{message}}');
 
       const response = await emailjs.send(
         'service_einzjkb',
