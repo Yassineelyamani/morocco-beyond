@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [toursVisible, setToursVisible] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const toursRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -32,6 +34,49 @@ export default function Home() {
 
     return () => observer.disconnect();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      fullName: formData.get('fullName'),
+      email: formData.get('email'),
+      tour: formData.get('tour'),
+      travelDates: formData.get('travelDates'),
+      travelers: formData.get('travelers'),
+      message: formData.get('message'),
+    };
+
+    // Validate required fields
+    if (!data.fullName || !data.email || !data.tour || !data.message) {
+      alert('Please fill in all required fields.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        e.currentTarget.reset();
+      } else {
+        alert('There was an error sending your inquiry. Please try again.');
+      }
+    } catch (error) {
+      alert('There was an error sending your inquiry. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <main className="min-h-screen overflow-hidden bg-[#060506]">
       {/* HERO SECTION */}
@@ -372,38 +417,52 @@ export default function Home() {
           </div>
 
           <div className="mx-auto max-w-3xl">
-            <form className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your full name"
-                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Email</label>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
-                  />
-                </div>
+            {formSubmitted ? (
+              <div className="rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 p-12 text-center">
+                <div className="mb-6 text-5xl">✓</div>
+                <h3 className="mb-4 text-2xl font-bold text-white">Thank You!</h3>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Your inquiry has been received. Our team will review your request and get back to you within 24 hours.
+                </p>
+                <button
+                  onClick={() => setFormSubmitted(false)}
+                  className="mt-8 inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-8 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37]/20"
+                >
+                  Send Another Inquiry
+                </button>
               </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">WhatsApp Number</label>
-                  <input
-                    type="tel"
-                    placeholder="+1 234 567 8900"
-                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
-                  />
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Full Name *</label>
+                    <input
+                      name="fullName"
+                      type="text"
+                      placeholder="Your full name"
+                      required
+                      className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Email *</label>
+                    <input
+                      name="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                      className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                    />
+                  </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Tour Interested In</label>
-                  <select className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Tour Interested In *</label>
+                  <select
+                    name="tour"
+                    required
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  >
                     <option value="" className="bg-[#060506]">Select a tour</option>
                     <option value="3-days" className="bg-[#060506]">3 Days Marrakech to Merzouga</option>
                     <option value="4-days" className="bg-[#060506]">4 Days Marrakech to Merzouga</option>
@@ -412,47 +471,54 @@ export default function Home() {
                     <option value="custom" className="bg-[#060506]">Custom Tour</option>
                   </select>
                 </div>
-              </div>
 
-              <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Travel Dates</label>
+                    <input
+                      name="travelDates"
+                      type="text"
+                      placeholder="Flexible or specific dates"
+                      className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Number of Travelers</label>
+                    <select
+                      name="travelers"
+                      className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                    >
+                      <option value="" className="bg-[#060506]">Select number</option>
+                      <option value="1" className="bg-[#060506]">1 Traveler</option>
+                      <option value="2" className="bg-[#060506]">2 Travelers</option>
+                      <option value="3-4" className="bg-[#060506]">3-4 Travelers</option>
+                      <option value="5-6" className="bg-[#060506]">5-6 Travelers</option>
+                      <option value="7+" className="bg-[#060506]">7+ Travelers</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Travel Dates</label>
-                  <input
-                    type="text"
-                    placeholder="Flexible or specific dates"
-                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none"
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Message *</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    placeholder="Tell us about your dream Morocco experience..."
+                    required
+                    className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none resize-none"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Number of Travelers</label>
-                  <select className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none">
-                    <option value="" className="bg-[#060506]">Select number</option>
-                    <option value="1" className="bg-[#060506]">1 Traveler</option>
-                    <option value="2" className="bg-[#060506]">2 Travelers</option>
-                    <option value="3-4" className="bg-[#060506]">3-4 Travelers</option>
-                    <option value="5-6" className="bg-[#060506]">5-6 Travelers</option>
-                    <option value="7+" className="bg-[#060506]">7+ Travelers</option>
-                  </select>
-                </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37]">Message</label>
-                <textarea
-                  rows={4}
-                  placeholder="Tell us about your dream Morocco experience..."
-                  className="w-full rounded-sm border border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder-gray-500 transition duration-300 focus:border-[#D4AF37]/50 focus:bg-white/10 focus:outline-none resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
-              >
-                Send Inquiry
-                <span className="transition duration-300 group-hover:translate-x-1">→</span>
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
