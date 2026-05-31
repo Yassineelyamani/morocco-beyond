@@ -1,6 +1,18 @@
 ﻿'use client';
 
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <main className="min-h-screen overflow-hidden bg-[#060506]">
       {/* HERO SECTION */}
@@ -11,34 +23,34 @@ export default function Home() {
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover saturate-[0.85]"
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/videos/hero.mp4.mp4" type="video/mp4" />
         </video>
 
-        {/* Subtle premium overlay for text readability - 20% opacity */}
-        <div className="absolute inset-0 bg-black/20" />
+        {/* Dark linear-gradient overlay for cinematic premium atmosphere */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30" />
 
         {/* HEADER / NAVBAR */}
-        <header className="absolute inset-x-0 top-0 z-20 border-b border-white/10 bg-gradient-to-b from-black/40 to-transparent px-6 py-7 backdrop-blur-2xl sm:px-10 lg:px-14">
+        <header className={`absolute inset-x-0 top-0 z-20 px-6 py-7 transition-all duration-300 sm:px-10 lg:px-14 ${isScrolled ? 'bg-black/70 backdrop-blur-md' : 'bg-transparent'}`}>
           <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-8">
-            <div className="flex flex-col space-y-1.5">
-              <p className="text-xs uppercase tracking-[0.6em] font-semibold text-amber-400 drop-shadow-lg">Morocco Beyond</p>
-              <h1 className="text-xl font-bold tracking-tight text-white">Luxury Escapes</h1>
+            <div className="flex flex-col space-y-1">
+              <p className="text-[10px] uppercase tracking-[0.35em] font-semibold text-gray-200">Morocco Beyond</p>
+              <h1 className="text-sm font-medium tracking-[0.15em] text-white uppercase">Luxury Escapes</h1>
             </div>
 
-            <nav className="hidden items-center gap-12 text-xs font-semibold uppercase tracking-[0.3em] text-gray-100 lg:flex">
-              <a href="#destinations" className="relative group transition duration-300 hover:text-amber-300 px-2 py-1">
+            <nav className="hidden items-center gap-16 text-[10px] font-semibold uppercase tracking-[0.25em] text-gray-100 lg:flex">
+              <a href="#destinations" className="relative group transition duration-300 hover:text-gray-300 px-2 py-1">
                 Destinations
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
               </a>
-              <a href="#experiences" className="relative group transition duration-300 hover:text-amber-300 px-2 py-1">
+              <a href="#experiences" className="relative group transition duration-300 hover:text-gray-300 px-2 py-1">
                 Experiences
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
               </a>
-              <a href="#footer" className="relative group transition duration-300 hover:text-amber-300 px-2 py-1">
+              <a href="#footer" className="relative group transition duration-300 hover:text-gray-300 px-2 py-1">
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
               </a>
             </nav>
           </div>
@@ -47,9 +59,8 @@ export default function Home() {
         {/* HERO CONTENT */}
         <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] items-center px-6 sm:px-10 lg:px-14">
           <div className="w-full max-w-2xl space-y-8 py-24">
-            <div className="inline-flex items-center gap-3 rounded-full border border-amber-400/70 bg-amber-500/30 px-7 py-4 backdrop-blur-xl shadow-lg shadow-amber-900/50 hover:shadow-amber-500/50 transition duration-500">
-              <div className="h-2.5 w-2.5 rounded-full bg-amber-300 animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.4em] font-semibold text-amber-50">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 px-6 py-3 backdrop-blur-sm transition duration-500">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-gray-200">
                 Curated Luxury Journeys
               </span>
             </div>
@@ -58,21 +69,32 @@ export default function Home() {
               Experience Morocco Elegantly
             </h2>
 
-            <p className="max-w-xl text-base leading-relaxed text-gray-50 sm:text-lg font-light">
+            {/* Moroccan-inspired decorative divider */}
+            <div className="flex items-center gap-3 pt-2">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+              <div className="flex gap-1">
+                <div className="h-2 w-2 rotate-45 border border-[#D4AF37]" />
+                <div className="h-2 w-2 rotate-45 border border-[#D4AF37]" />
+                <div className="h-2 w-2 rotate-45 border border-[#D4AF37]" />
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+            </div>
+
+            <p className="max-w-xl text-sm leading-relaxed text-gray-200 sm:text-base font-light uppercase tracking-[0.15em]">
               Discover the heart of North Africa through curated luxury experiences. From vibrant medinas to endless desert dunes, explore with private guides, boutique stays, and unforgettable moments.
             </p>
 
             <div className="flex flex-col gap-5 sm:flex-row pt-8">
               <a
                 href="#destinations"
-                className="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-10 py-4 text-sm font-bold uppercase tracking-[0.2em] text-black shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
+                className="group inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4A017] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
               >
                 Explore Now
                 <span className="transition duration-300 group-hover:translate-x-1">→</span>
               </a>
               <a
                 href="#experiences"
-                className="group inline-flex items-center justify-center rounded-lg border-2 border-white/60 bg-white/15 px-10 py-4 text-sm font-bold uppercase tracking-[0.2em] text-white backdrop-blur-xl transition duration-300 hover:border-white/80 hover:bg-white/25 hover:shadow-xl hover:shadow-white/20"
+                className="group inline-flex items-center justify-center rounded-sm border border-white/30 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white backdrop-blur-sm transition duration-300 hover:border-white/50 hover:bg-white/5"
               >
                 Discover More
               </a>
