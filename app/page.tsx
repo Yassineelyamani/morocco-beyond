@@ -221,7 +221,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
             {/* 3 DAYS MARRAKECH TO MERZOUGA TOUR */}
             <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '0ms' : '0ms' }}>
               <div className="relative h-72 overflow-hidden">
@@ -386,6 +386,53 @@ export default function Home() {
 
                 <a
                   href="/tours/14-days-morocco-tour-from-casablanca"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
+                >
+                  View Itinerary
+                  <span className="transition duration-300 group-hover:translate-x-1">→</span>
+                </a>
+              </div>
+            </article>
+
+            {/* 8 DAYS MOROCCO TOUR FROM TANGIER TO MARRAKECH */}
+            <article className={`group flex flex-col overflow-hidden rounded-sm border border-white/15 bg-gradient-to-br from-white/8 to-white/[0.02] shadow-xl shadow-black/50 transition-all duration-700 hover:border-[#D4AF37]/50 hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-1 ${toursVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: toursVisible ? '600ms' : '0ms' }}>
+              <div className="relative h-72 overflow-hidden">
+                <img
+                  src="/images/chefchaouen.jpg"
+                  alt="8 Days Morocco Tour from Tangier to Marrakech"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute top-4 right-4 rounded-sm bg-[#D4AF37]/90 px-3 py-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black">8 Days</span>
+                </div>
+              </div>
+
+              <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white">Tangier to Marrakech</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Chefchaouen</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Fes Medina</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Sahara Desert</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                      <span className="text-[#D4AF37]">✓</span>
+                      <span>Marrakech</span>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href="/tours/8-days-morocco-tour-from-tangier-to-marrakech"
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
                 >
                   View Itinerary
