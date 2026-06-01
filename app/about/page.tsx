@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'About Morocco Beyond | Private Morocco Tours',
@@ -42,7 +43,17 @@ export default function AboutPage() {
       <main className="min-h-screen bg-[#060506] text-white">
         {/* Hero Section */}
         <section className="relative h-[70vh] flex items-center justify-center bg-gradient-to-b from-amber-900/20 to-[#060506]">
-          <div className="absolute inset-0 bg-[url('/images/marrakesh.jpg')] bg-cover bg-center opacity-30" />
+          <div className="absolute inset-0">
+            <Image
+              src="/images/about-morocco-beyond.jpg"
+              alt="Morocco Beyond - Premium Morocco Tours"
+              fill
+              className="object-cover opacity-30"
+              priority
+              sizes="100vw"
+              quality={90}
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#060506]" />
           <div className="relative z-10 text-center px-6 max-w-4xl">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-amber-400">
