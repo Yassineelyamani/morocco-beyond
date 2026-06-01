@@ -45,7 +45,7 @@ export default function AboutPage() {
         <section className="relative h-[70vh] flex items-center justify-center bg-gradient-to-b from-amber-900/20 to-[#060506]">
           <div className="absolute inset-0">
             <Image
-              src="/images/about-morocco-beyond.jpg"
+              src="/images/about-morocco-beyond.jpeg"
               alt="Morocco Beyond - Premium Morocco Tours"
               fill
               className="object-cover opacity-30"
