@@ -139,6 +139,10 @@ export default function Home() {
                 Experiences
                 <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
               </a>
+              <a href="/about" className="relative group transition duration-300 hover:text-gray-300 px-2 py-1">
+                About
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
+              </a>
               <a href="#footer" className="relative group transition duration-300 hover:text-gray-300 px-2 py-1">
                 Contact
                 <span className="absolute bottom-0 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
