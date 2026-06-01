@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     title: "Morocco Beyond | Luxury Morocco Tours",
     description: "Luxury private tours in Morocco. Sahara Desert, Marrakech, Fes, Chefchaouen and custom travel experiences.",
   },
+  verification: {
+    google: "SZmhMir5XVQ6pu3W4eC_Hvl_dyP0NuO689QtuybvmWs",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
