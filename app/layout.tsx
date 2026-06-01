@@ -20,8 +20,12 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Morocco Beyond • Luxury Travel",
-  description: "Premium Morocco travel experiences featuring Marrakech, the Sahara, and coastal blue cities.",
+  title: "Morocco Beyond | Luxury Morocco Tours",
+  description: "Luxury private tours in Morocco. Sahara Desert, Marrakech, Fes, Chefchaouen and custom travel experiences.",
+  openGraph: {
+    title: "Morocco Beyond | Luxury Morocco Tours",
+    description: "Luxury private tours in Morocco. Sahara Desert, Marrakech, Fes, Chefchaouen and custom travel experiences.",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
