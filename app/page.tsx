@@ -256,7 +256,7 @@ export default function Home() {
                 </div>
 
                 <a
-                  href="#contact"
+                  href="/tours/3-days-marrakech-to-merzouga-desert-tour"
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
                 >
                   View Itinerary
@@ -299,7 +299,7 @@ export default function Home() {
                 </div>
 
                 <a
-                  href="#contact"
+                  href="/tours/4-days-marrakech-to-merzouga-desert-tour"
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
                 >
                   View Itinerary
@@ -342,7 +342,7 @@ export default function Home() {
                 </div>
 
                 <a
-                  href="#contact"
+                  href="/tours/10-days-morocco-tour-from-casablanca"
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
                 >
                   View Itinerary
@@ -385,7 +385,7 @@ export default function Home() {
                 </div>
 
                 <a
-                  href="#contact"
+                  href="/tours/14-days-morocco-tour-from-casablanca"
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37] transition duration-300 hover:bg-[#D4AF37] hover:text-black"
                 >
                   View Itinerary
