@@ -74,8 +74,8 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden shadow-2xl">
               <Image
-                src="/images/about-morocco-beyond.jpg"
-                alt="Morocco Beyond - Our Story"
+                src="/images/about-morocco-beyond.jpeg"
+                alt="Morocco Beyond guide with travelers in the Sahara Desert"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
