@@ -71,16 +71,28 @@ export default function AboutPage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-amber-400">Our Story</h2>
             <div className="w-24 h-1 bg-amber-400 mx-auto mb-8" />
           </div>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              Morocco Beyond was created to help international travelers discover the true beauty of Morocco through carefully crafted private tours, local expertise, and authentic cultural experiences.
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              We believe that the best way to experience Morocco is through authentic travel experiences that go beyond the typical tourist trail. Our personalized itineraries are designed to connect travelers with the heart of Morocco, from the vibrant medinas of Marrakech to the golden dunes of the Sahara Desert.
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              With deep local knowledge and a passion for sharing our culture, we ensure every journey is comfortable, convenient, and filled with meaningful cultural connections that create lasting memories.
-            </p>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative h-[400px] rounded-lg overflow-hidden shadow-2xl">
+              <Image
+                src="/images/about-morocco-beyond.jpg"
+                alt="Morocco Beyond - Our Story"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={90}
+              />
+            </div>
+            <div>
+              <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                Morocco Beyond was created to help international travelers discover the true beauty of Morocco through carefully crafted private tours, local expertise, and authentic cultural experiences.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                We believe that the best way to experience Morocco is through authentic travel experiences that go beyond the typical tourist trail. Our personalized itineraries are designed to connect travelers with the heart of Morocco, from the vibrant medinas of Marrakech to the golden dunes of the Sahara Desert.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                With deep local knowledge and a passion for sharing our culture, we ensure every journey is comfortable, convenient, and filled with meaningful cultural connections that create lasting memories.
+              </p>
+            </div>
           </div>
         </section>
 
