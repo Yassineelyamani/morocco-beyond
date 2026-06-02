@@ -45,7 +45,7 @@ export default function AboutPage() {
         <section className="relative h-[70vh] flex items-center justify-center bg-gradient-to-b from-amber-900/20 to-[#060506]">
           <div className="absolute inset-0">
             <Image
-              src="/images/about-morocco-beyond.jpeg"
+              src="/images/about-morocco-beyond.jpg"
               alt="Morocco Beyond - Premium Morocco Tours"
               fill
               className="object-cover opacity-30"
@@ -74,7 +74,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden shadow-2xl">
               <Image
-                src="/images/about-morocco-beyond.jpeg"
+                src="/images/about-morocco-beyond.jpg"
                 alt="Morocco Beyond guide with travelers in the Sahara Desert"
                 fill
                 className="object-cover"
