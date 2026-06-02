@@ -448,6 +448,176 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS SECTION */}
+      <section className="relative border-t border-white/10 bg-[#060506] px-6 py-20 sm:px-10 lg:px-14">
+        <div className="mx-auto max-w-[1400px]">
+          {/* Trust Badge */}
+          <div className="mb-12 text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="text-[#D4AF37] text-2xl">★</span>
+              ))}
+            </div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#D4AF37]">
+              Excellent Traveler Reviews
+            </p>
+          </div>
+
+          {/* Section Header */}
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-black text-white sm:text-5xl lg:text-6xl mb-6 drop-shadow-xl">
+              What Our Travelers Say
+            </h2>
+            <p className="max-w-2xl mx-auto text-sm text-gray-200 leading-relaxed uppercase tracking-[0.15em]">
+              Authentic experiences shared by travelers who explored Morocco with our team.
+            </p>
+          </div>
+
+          {/* Testimonials Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Testimonial 1 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "An absolutely incredible experience! Our guide was knowledgeable, the accommodations were luxurious, and every detail was perfectly planned. The Sahara Desert camping was the highlight of our trip."
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">S</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Sarah Mitchell</p>
+                  <p className="text-gray-400 text-sm">United States</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "Morocco Beyond exceeded all our expectations. The private tour allowed us to explore at our own pace, and the local insights made our journey truly authentic. Highly recommended!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">J</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">James Thompson</p>
+                  <p className="text-gray-400 text-sm">United Kingdom</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "From the bustling souks of Marrakech to the peaceful Atlas Mountains, every moment was magical. The team's attention to detail and hospitality made us feel like family."
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">M</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Marie Dubois</p>
+                  <p className="text-gray-400 text-sm">France</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 4 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "The 10-day tour was perfectly curated. We visited hidden gems we never would have found on our own. The local guides were passionate and the riads were stunning."
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">H</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Hans Mueller</p>
+                  <p className="text-gray-400 text-sm">Germany</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 5 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "Chefchaouen was a dream come true! The blue city exceeded our expectations. Morocco Beyond made our honeymoon unforgettable with their personalized service and attention to detail."
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">E</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Emma Rodriguez</p>
+                  <p className="text-gray-400 text-sm">Spain</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 6 */}
+            <div className="bg-gradient-to-br from-white/8 to-white/[0.02] border border-white/15 rounded-lg p-8 shadow-xl hover:border-[#D4AF37]/50 transition duration-300">
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-[#D4AF37] text-lg">★</span>
+                ))}
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                "Professional, reliable, and authentic. The team went above and beyond to ensure our family had a safe and memorable experience. We're already planning our next trip with them!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37]/30 to-[#D4AF37]/10 flex items-center justify-center">
+                  <span className="text-[#D4AF37] font-bold text-lg">T</span>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Tanaka Kenji</p>
+                  <p className="text-gray-400 text-sm">Japan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-16 text-center">
+            <h3 className="text-3xl font-bold text-white mb-6">
+              Ready to Experience Morocco?
+            </h3>
+            <a
+              href="/"
+              className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-r from-[#D4AF37] to-[#F4C430] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-2xl shadow-amber-500/60 transition duration-300 hover:shadow-amber-400/80 hover:shadow-2xl hover:scale-105 active:scale-95"
+            >
+              Contact Us
+              <span className="transition duration-300 group-hover:translate-x-1">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* TRUST SECTION */}
       <section className="relative border-t border-white/10 bg-[#060506] px-6 py-20 sm:px-10 lg:px-14">
         <div className="mx-auto max-w-[1400px]">
